@@ -1,6 +1,7 @@
 #### 概要
 AWSというクラウド上に、インターネットから見えるWebサーバーを自動で立ち上げるための設計図
 
+### Architecture Overview
 graph TD
     User((User)) --> CloudFront(CloudFront)
     CloudFront --> ALB(Application Load Balancer)
