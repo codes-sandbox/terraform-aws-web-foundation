@@ -1,7 +1,7 @@
-#### 概要
+### 概要
 AWSというクラウド上に、インターネットから見えるWebサーバーを自動で立ち上げるための設計図
 
-#### 構成
+### 構成
 ネットワークの構築
 VPC: クラウド上の仮想ネットワーク空間を作る
 Subnet: その土地の中に、サーバーを置くための区画を用意する
@@ -16,22 +16,8 @@ Webサーバーの構築
 EC2 Instance: Amazon Linux 2023という最新のOSを搭載した仮想サーバーを建てる
 User Data: サーバーが立ち上がった瞬間に自動的にWebサーバーソフト (Apache)をインストールし自動起動設定を行い「Hello from Terraform Web Server!」という最初のWebページを設置するスクリプトが動く
 
-### Architecture Overview
-
-```mermaid
-graph TD
-    User((User)) --> CF(CloudFront)
-    CF --> ALB(ALB)
-    subgraph VPC
-        ALB --> ASG(ASG/EC2)
-        ASG --> RDS[(RDS)]
-    end
-    S3[(S3)] -.-> CF
-
 ### CI/CD Pipeline Flow
-
 GitHubへのPushをトリガーに、自動検証パイプラインが実行される流れ。
-
 ```mermaid
 graph LR
     Push[Git Push] --> Actions[GitHub Actions]
@@ -42,3 +28,13 @@ graph LR
     Validate --> Pass((Success))
     Validate -- Error --> Fail((Failed/Notify))
 
+### Architecture Overview
+```mermaid
+graph TD
+    User((User)) --> CF(CloudFront)
+    CF --> ALB(ALB)
+    subgraph VPC
+        ALB --> ASG(ASG/EC2)
+        ASG --> RDS[(RDS)]
+    end
+    S3[(S3)] -.-> CF
