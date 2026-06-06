@@ -1,6 +1,15 @@
 #### 概要
 AWSというクラウド上に、インターネットから見えるWebサーバーを自動で立ち上げるための設計図
 
+graph TD
+    User((User)) --> CloudFront(CloudFront)
+    CloudFront --> ALB(Application Load Balancer)
+    subgraph VPC
+        ALB --> ASG(Auto Scaling Group / EC2)
+        ASG --> RDS[(RDS - Multi-AZ)]
+    end
+    S3[(S3 - Assets)] -.-> CloudFront
+
 #### 構成
 ネットワークの構築
 VPC: クラウド上の仮想ネットワーク空間を作る
