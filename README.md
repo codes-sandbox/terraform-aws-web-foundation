@@ -28,5 +28,17 @@ graph TD
     end
     S3[(S3)] -.-> CF
 
+### CI/CD Pipeline Flow
 
+GitHubへのPushをトリガーに、自動検証パイプラインが実行される流れ。
+
+```mermaid
+graph LR
+    Push[Git Push] --> Actions[GitHub Actions]
+    subgraph Validation
+        Actions --> Init[terraform init]
+        Init --> Validate[terraform validate]
+    end
+    Validate --> Pass((Success))
+    Validate -- Error --> Fail((Failed/Notify))
 
