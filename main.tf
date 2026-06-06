@@ -67,9 +67,10 @@ resource "aws_security_group" "web_server_sg" {
 # 5. Webサーバー構築 (EC2)
 resource "aws_instance" "my_web_server" {
   ami                    = data.aws_ami.amazon_linux_2023.id
-  instance_type          = "t2.micro"
+  instance_type          = var.instance_type  # 変数を参照するように変更
   subnet_id              = aws_subnet.my_web_subnet.id
   vpc_security_group_ids = [aws_security_group.web_server_sg.id]
+}
 
   user_data = <<-EOF
               #!/bin/bash
